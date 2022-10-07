@@ -24,7 +24,7 @@ Here are the requirements status:
    - PLEASE NOTE:
          1. The periodic sync in every 5 seconds is extended to 1 minute because the api documentation says it will not update
          the currencies before that minimum time.
-         2. The API is not free, it might be free before but now it has moved to another domain and requires subscription.
+         2. The API is not free, it might be free before but now it has moved to another domain and requires subscription. The APi key should be kept in gradle.properties but for the simplicity and make app testing easier currently kept in kotlin code directly.
          3. The 1 minute sync is commented out in viewmodel layer to limit the request otherwise it might cross the monthly limit 
             and fail to get response. Feel free to uncomment those lines to check the functionality.
          4. Timer is used to get the periodic sync, but WorkManager could be used for better performance. Just to keep it simple 
