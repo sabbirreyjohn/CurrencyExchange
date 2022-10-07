@@ -12,6 +12,7 @@ Here are the requirements status:
     - Retrofit used as a networking library
     - Room Pertistance library is used for local database
     - Basic unit testing(database, viewmodel) is done, please check test packages
+    - Taken total 24 hours to complete the task
     
 4. Apps current nature and behaviour:
    - App uses api from https://api.apilayer.com
@@ -22,12 +23,12 @@ Here are the requirements status:
    - Balances(Every currencies that were converted to) is visible in the app
    - Commission rate, number of free conversion etc can be tuned in Constants.KT file
    - PLEASE NOTE:
-         1. The periodic sync in every 5 seconds is extended to 1 minute because the api documentation says it will not update
-         the currencies before that minimum time.
-         2. The API is not free, it might be free before but now it has moved to another domain and requires subscription. The APi key should be kept in gradle.properties but for the simplicity and make app testing easier currently kept in kotlin code directly.
-         3. The 1 minute sync is commented out in viewmodel layer to limit the request otherwise it might cross the monthly limit 
-            and fail to get response. Feel free to uncomment those lines to check the functionality.
-         4. Timer is used to get the periodic sync, but WorkManager could be used for better performance. Just to keep it simple 
-            WorkManager is skipped this time.
+     - The periodic sync in every 5 seconds is extended to 1 minute because the api documentation says it will not update
+     the currencies before that minimum time. 
+     - The API is not free, it might be free before but now it has moved to another domain and requires subscription. The APi key should be kept in gradle.properties but for the simplicity and make app testing easier currently kept in kotlin code directly. 
+     - The 1 minute sync is commented out in viewmodel layer to limit the request otherwise it might cross the monthly limit 
+     and fail to get response. Feel free to uncomment those lines to check the functionality. 
+     - Timer is used to get the periodic sync, but WorkManager could be used for better performance. Just to keep it simple 
+     WorkManager is skipped this time.
 
 THANK YOU
