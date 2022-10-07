@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Currency Exchange</string>
+    <string name="select_different_currencies">Please select two different currencies to convert.</string>
+    <string name="commission_fee">Commission Fee %f %s</string>
+    <string name="commission_fee_fail">Mark that Commission Fee %f %s to be deducted from sell amount.</string>
+    <string name="conversion_success">You have converted %f %s to %f %s. %s</string>
+    <string name="conversion_failed">You do not have enough %s to convert.</string>
+    <string name="my_balances">MY BALANCES</string>
+    <string name="currency_exchange">CURRENCY EXCHANGE</string>
+    <string name="sell">Sell</string>
+    <string name="enter_amount">Enter amount to sell</string>
+    <string name="receive">Receive</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="failed_to_load_rate">Failed to load rates from api server, try again with different amount</string>
+
+
 </resources>

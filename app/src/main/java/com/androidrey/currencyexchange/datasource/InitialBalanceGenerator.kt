@@ -5,7 +5,7 @@ import com.androidrey.currencyexchange.model.Account
 class InitialBalanceGenerator {
     companion object {
         fun getInitialBalance(): Account {
-            return Account(1, "EUR", 1.0, 1000.0)
+            return Account("EUR", 1000.00)
         }
     }
 }

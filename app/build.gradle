@@ -65,6 +65,7 @@ dependencies {
 
     //Retrofit-moshi-converter
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation 'com.google.ar:core:1.25.0'
 
     //Room database
     def room_version = "2.4.1"
@@ -75,6 +76,9 @@ dependencies {
     //coil-image-loader
     implementation "io.coil-kt:coil-compose:1.4.0"
 
+    //accompanist-pager
+    implementation("com.google.accompanist:accompanist-pager:0.23.1")
+
     //hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
@@ -84,9 +88,16 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "androidx.test:core-ktx:1.3.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation "org.robolectric:robolectric:4.9"
+    testImplementation "io.mockk:mockk:1.12.0"
+
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }

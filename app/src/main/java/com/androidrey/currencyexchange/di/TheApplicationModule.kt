@@ -51,5 +51,5 @@ class TheApplicationModule {
         rateResponseHelperImpl
 
     @Provides
-    fun provideAccountInfoDao(database: TheDatabase) = database.accountInfoDao
+    fun provideCurrencyDao(database: TheDatabase) = database.currencyDao
 }
