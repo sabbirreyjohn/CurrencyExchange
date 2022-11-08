@@ -7,6 +7,7 @@ import com.androidrey.currencyexchange.datasource.RateResponseHelperImpl
 import com.androidrey.currencyexchange.datasource.RateResponseInterface
 import com.androidrey.currencyexchange.datasource.TheDatabase
 import com.androidrey.currencyexchange.datasource.getDatabase
+import com.androidrey.currencyexchange.repository.RatesRepository
 import com.androidrey.currencyexchange.util.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -52,4 +53,9 @@ class TheApplicationModule {
 
     @Provides
     fun provideCurrencyDao(database: TheDatabase) = database.currencyDao
+
+    @Provides
+    @Singleton
+    fun provideRatesRepository(database: TheDatabase, rateResponseHelper: RateResponseHelper) =
+        RatesRepository(database, rateResponseHelper)
 }

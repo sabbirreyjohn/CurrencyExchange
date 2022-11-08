@@ -1,7 +1,14 @@
 package com.androidrey.currencyexchange.ui.view.converter
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.androidrey.currencyexchange.R
 import com.androidrey.currencyexchange.di.StringResourceProvider
 import com.androidrey.currencyexchange.model.Account
@@ -12,16 +19,22 @@ import com.androidrey.currencyexchange.util.COMMISSION_FEE_PERCENTAGE
 import com.androidrey.currencyexchange.util.MAX_FREE_CONVERSION
 import com.androidrey.currencyexchange.util.MAX_FREE_CONVERSION_AMOUNT
 import com.androidrey.currencyexchange.util.Status
+import com.androidrey.currencyexchange.workmanager.SyncWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@SuppressLint("InvalidPeriodicWorkRequestInterval")
 @HiltViewModel
 class ConverterViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val repo: RatesRepository,
     private val stringResourceProvider: StringResourceProvider
 ) : ViewModel() {
+
 
     private val _rates = MutableStateFlow<MutableList<Rate>>(mutableListOf())
     val rates get() = _rates
@@ -43,16 +56,25 @@ class ConverterViewModel @Inject constructor(
 
 
     init {
-        // TODO: Uncomment these following lines of code for syncing in every 5 seconds
-//        Timer().scheduleAtFixedRate(object : TimerTask() {
-//            override fun run() {
-//                loadRates()
-//            }
-//        }, 200, (SYNC_INTERVAL_IN_SECONDS * 1000))
-
-        // TODO: when syncing is enabled, comment the following one line code
         loadRates()
         loadAccountInfo()
+        val myConstraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val workRequest = PeriodicWorkRequest.Builder(SyncWorker::class.java, 30, TimeUnit.MINUTES)
+            .setInitialDelay(5, TimeUnit.SECONDS)
+            .setConstraints(myConstraints)
+            .addTag("myWorkManager")
+            .build()
+
+
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "myWorkManager",
+            ExistingPeriodicWorkPolicy.REPLACE, workRequest
+        )
+
+
     }
 
     fun loadRates() {
@@ -197,5 +219,10 @@ class ConverterViewModel @Inject constructor(
             }
             loadAccountInfo()
         }
+    }
+
+    override fun onCleared() {
+        WorkManager.getInstance(context).cancelAllWorkByTag("myWorkManager")
+        super.onCleared()
     }
 }
